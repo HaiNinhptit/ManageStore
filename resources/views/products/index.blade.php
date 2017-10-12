@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
   <h2>List Products</h2>   
-  <a href="#" class="btn btn-primary" role="button" style="margin-bottom:10px;">New Product</a>       
+  <a href="{{action('ProductController@create')}}" class="btn btn-primary" role="button" style="margin-bottom:10px;">New Product</a>       
   <table class="table table-bordered">
     <thead>
       <tr>

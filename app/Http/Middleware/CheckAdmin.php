@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckSession
+class CheckAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class CheckSession
      */
     public function handle($request, Closure $next)
     {
-        if($request->session()->get('user_id'))
+        if($request->session()->has('admin_id'))
         {
             return $next($request); 
         }
@@ -24,6 +24,5 @@ class CheckSession
             return redirect('users/login');
 
         }
-        
     }
 }

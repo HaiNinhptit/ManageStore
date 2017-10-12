@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('session.check');
+        $this->middleware('admin.check')->except('show','search');
     }
     /**
      * Display a listing of the resource.
@@ -51,8 +51,6 @@ class ProductController extends Controller
             'description' => 'required',
             'category_id' => 'required|integer'
         ]);
-        $product->description =tinymce.getContent('editor1');
-        //$product->description = tinyMCE.activeEditor.getDoc().body;
         Product::create($product);
         return redirect('products/create')->with('success','Add success');
     }
@@ -67,7 +65,8 @@ class ProductController extends Controller
     {
         //
         $product = Product::find($id);
-        return view('products.detail',['product'=>$product]);
+        $comments = $product->comments;
+        return view('products.detail',['product'=>$product],compact('comments'));
     }
 
     /**
@@ -121,5 +120,12 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
         return redirect('products');
+    }
+
+    public function search(Request $request)
+    {
+        $content = $request->input('search');
+        $products = Product::Where('name', 'like', '%' . $content . '%')->orWhere('description', 'like', '%' . $content . '%')->get();
+        return view('pages.home', compact('products'));
     }
 }

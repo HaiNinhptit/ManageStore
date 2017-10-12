@@ -16,12 +16,8 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('producer');
+            $table->string('trademark');
             $table->timestamps();
-        });
-
-        Schema::table('categories', function (Blueprint $table) {
-            $table->renameColumn('producer', 'trademark');
         });
     }
 

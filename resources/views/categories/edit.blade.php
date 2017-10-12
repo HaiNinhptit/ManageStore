@@ -24,8 +24,8 @@
       <input type="text" class="form-control" name="name" value="{{$category->name}}">
     </div>
     <div class="form-group">
-      <label for="producer">Producer:</label>
-      <input type="text" class="form-control" name="producer" value="{{$category->producer}}">
+      <label for="trademark">Trademark:</label>
+      <input type="text" class="form-control" name="trademark" value="{{$category->trademark}}">
     </div>
     <button type="submit" class="btn btn-success">Change</button>
   </form>

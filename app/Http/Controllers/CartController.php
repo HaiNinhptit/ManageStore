@@ -8,73 +8,124 @@ use App\Cart;
 use App\CartProduct;
 use App\Order;
 use App\OrderProduct;
+use App\Product;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('user.check')->only('showOrder', 'showOrderDetail','order');
+    }
     public function index(Request $request)
     {
-        $id = $request->session()->get('user_id');
-        $cart = User::find($id)->cart;
-        return view('carts.index',compact('cart'));
+        if($request->session()->has('user_id'))
+        {
+            $id = $request->session()->get('user_id');
+            $cart = User::find($id)->cart;
+            return view('carts.index',compact('cart'));
+        }
+        else
+        {
+            $cart = new Cart();
+            $arrays = $request->session()->get('products');
+
+
+            return view('carts.index',compact('cart', 'arrays'));
+        }
+        
     }
     //
     public function create(Request $request, $id_product)
     {
-       $id = $request->session()->get('user_id');
-       $cart = User::find($id)->cart;
-       if($cart == NULL)
+       if($request->session()->has('user_id')) 
        {
-           //create Cart
-           $cart = new Cart();
-           $cart->user_id = $id;
-           $cart->save();
-
-           //create CartProduct
-           $cart_product = new CartProduct();
-           $cart_product->cart_id =$cart->id;
-           $cart_product->product_id = $id_product;
-           $cart_product->quantity = 1;
-           $cart_product->save();
-           return redirect('carts')->with('success','A new product has been added to the cart');
-       }
-       else
-       {
-        $check = 1;//chua co san pham
-
-        foreach ($cart->products as $product) {
-            //
-            if($product->id == $id_product)
+            $id = $request->session()->get('user_id');
+            $cart = User::find($id)->cart;
+            if($cart == NULL)
             {
-                $check = 0;
-                break;          
-            }  
-        }
+                //create Cart
+                $cart = new Cart();
+                $cart->user_id = $id;
+                $cart->save();
+    
+                //create CartProduct
+                $cart_product = new CartProduct();
+                $cart_product->cart_id =$cart->id;
+                $cart_product->product_id = $id_product;
+                $cart_product->quantity = 1;
+                $cart_product->save();
+                return redirect('carts')->with('success','A new product has been added to the cart');
+            }
+            else
+            {
+                $check = 1;//chua co san pham
         
-        if($check == 1)
-        {
-            $cart_product = new CartProduct();
-            $cart_product->cart_id =$cart->id;
-            $cart_product->product_id = $id_product;
-            $cart_product->quantity = 1;
-            $cart_product->save(); 
-            return redirect('carts')->with('success','A new product has been added to the cart');
+                foreach ($cart->products as $product) {
+                    //
+                    if($product->id == $id_product)
+                    {
+                        $check = 0;
+                        break;          
+                    }  
+                }
+                
+                if($check == 1)
+                {
+                    $cart_product = new CartProduct();
+                    $cart_product->cart_id =$cart->id;
+                    $cart_product->product_id = $id_product;
+                    $cart_product->quantity = 1;
+                    $cart_product->save(); 
+                    return redirect('carts')->with('success','A new product has been added to the cart');
+                }
+                else
+                {
+                    $cart_products = $cart->cartProducts;
+                    foreach($cart_products as $cart_product)
+                    {
+                        if($cart_product->product_id == $id_product)
+                        {
+                            $cart_product->quantity = $cart_product->quantity + 1;
+                            $cart_product->save();
+                            return redirect('carts')->with('success','A new product has been added to the cart');
+        
+                        }
+                    }
+                }
+           
+            }
         }
         else
         {
-            $cart_products = $cart->cartProducts;
-            foreach($cart_products as $cart_product)
+            $check = 1;
+            $arrays = $request->session()->get('products');
+            for($i = 0; $i < count($arrays); $i++)
             {
-                if($cart_product->product_id == $id_product)
+                if ($arrays[$i]['id'] == $id_product)
                 {
-                    $cart_product->quantity = $cart_product->quantity + 1;
-                    $cart_product->save();
-                    return redirect('carts')->with('success','A new product has been added to the cart');
-
+                    $arrays[$i]['number'] = $arrays[$i]['number'] + 1;
+                    $check = 0;
+                    break;
                 }
             }
+            
+            if($check == 1)
+            {
+                $price = Product::find($id_product)->price;
+                $request->session()->push('products',['id'=>$id_product,'number'=>1, 'price' => $price]);
+                return redirect('carts')->with('success','Add product access');
+            }
+            else
+            {
+                $request->session()->put('products',$arrays);
+
+                return redirect('carts')->with('success','Add product access');
+                
+            }
+
+           
         }
-          
-        }
+       
     }
 
     public function destroy($id)

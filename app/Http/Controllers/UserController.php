@@ -5,13 +5,17 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Product;
 use Auth;
+use App\Cart;
+use App\CartProduct;
 use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('session.check')->except('store','create','login','postLogin');
+        $this->middleware('admin.check')->only('listUser', 'adminLogout', 'adminEdit', 'adminUpdate');
+        $this->middleware('user.check')->only('edit', 'update', 'destroy');
     }
+   
     /**
      * Display a listing of the resource.
      *
@@ -50,6 +54,7 @@ class UserController extends Controller
             'password' => 'required|min:8',
         ]);
         $user['password'] = bcrypt($user['password']);
+        $user['rules'] = 0;
         User::create($user);
         return redirect('users/login');
     }
@@ -99,7 +104,7 @@ class UserController extends Controller
         ]);
         $email = $request->input('email');
         $password = $request->input('password');
-        if(Auth::attempt(['email' => $email, 'password' =>$password]))
+        if(Auth::attempt(['email' => $email, 'password' => $password]))
         {
             $user->name = $request->input('name');
             $user->password = bcrypt($request->input('newpassword'));        
@@ -121,6 +126,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+        return redirect('users/listUser');
     }
 
     //get login
@@ -138,7 +146,7 @@ class UserController extends Controller
        ]);
        $email = $request->input('email');
        $password = $request->input('password');
-       if(Auth::attempt(['email' => $email, 'password' => $password]))
+       if(Auth::attempt(['email' => $email, 'password' => $password, 'rules' => 0]))
        {
           $user = DB::table('users')->where([
               ['email', '=', $email]
@@ -146,18 +154,93 @@ class UserController extends Controller
           $request->session()->put('user_id',$user->id);
           $request->session()->put('name',$user->name);
           //return view('pages.home',compact('products'));
-          return redirect()->route('home', ['products'=>$products]);
+          if($request->session()->has('products'))
+          {
+            //kiem tra xem co gio hang chua
+            $cart = Cart::find($request->session()->get('user_id'));  
+            if($cart == NULL)
+            {
+                $cart = new Cart();
+                $cart->user_id = $request->session()->get('user_id');
+                $cart->save();  
+            }
+            $arrays = $request->session()->get('products');
+            $tong = 0;
+            for($i = 0; $i < count($arrays); $i++)
+            {
+                //kiem tra co cartproduct chua neu chua co thi tao moi con neu co roi thi so luong se bang cong don
+                $cartProduct = CartProduct::find($arrays[$i]['id']);
+                if($cartProduct == NULL)
+                {
+                    $cartProduct = new CartProduct();
+                    $cartProduct->cart_id = $cart->id;
+                    $cartProduct->product_id = $arrays[$i]['id'];
+                    $cartProduct->quantity = $arrays[$i]['number'];
+                    $cartProduct->save();
+                    $tong+= $arrays[$i]['price'] * $cartProduct->quantity ;
+                }
+                else
+                {
+                    $cartProduct->quantity = $cartProduct->quantity + $arrays[$i]['number'];
+                    $tong += $arrays[$i]['price'] * $cartProduct->quantity ;
+                }
+            }
+            return view('carts.order',compact('cart','arrays','tong'));
+          }
+          else
+          {
+            return redirect()->route('home', ['products'=>$products]); 
+          }
+       }
+       elseif (Auth::attempt(['email' => $email, 'password' => $password, 'rules' => 1]))
+       {    $user = DB::table('users')->where([
+                ['email', '=', $email]
+            ])->first();
+            $request->session()->put('admin_id',$user->id);
+            $request->session()->put('name_admin',$user->name);
+            return redirect('products');
        }
        else
        {
-           return redirect('users/login')->with('success','Email or Password wrong');
+           return redirect('users/login')->with('success','Login fails');
        }
     }
 
     public function logout(Request $request)
     {
         $request->session()->forget('user_id');
+        $request->session()->forget('name');
+        $request->session()->forget('products');
         return redirect('users/login');
 
+    }
+    public function listUser()
+    {
+        $users = User::Where('rules', '=', 0)->get();
+        return view('users.listUser',compact('users')); 
+    }
+
+    public function adminEdit($id)
+    {
+       $user = User::find($id);
+       return view('users.adminEdit',compact('user'));
+    }
+
+    public function adminUpdate(Request $request, $id)
+    {
+        $this->validate(request(), [
+            'name' => 'required',
+       ]);
+       $user = User::find($id);
+       $user->name = $request->input('name');
+       $user->save();
+       return redirect('users/listUser');
+    }
+
+    public function adminLogout(Request $request)
+    {
+        $request->session()->forget('admin_id');
+        $request->session()->forget('name_admin');
+        return redirect('users/login');
     }
 }

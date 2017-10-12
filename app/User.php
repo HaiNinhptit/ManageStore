@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'rules',
     ];
 
     /**
@@ -46,5 +46,10 @@ class User extends Authenticatable
             $total += $order->totalPrice();
         }
         return $total;
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 }

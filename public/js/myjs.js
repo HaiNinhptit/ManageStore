@@ -65,3 +65,8 @@ jQuery( function( $ ) {
        });
        wcqi_refresh_quantity_increments();
    });
+
+
+
+
+

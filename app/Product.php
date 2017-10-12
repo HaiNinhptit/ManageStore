@@ -35,4 +35,9 @@ class Product extends Model
     {
         return $this->hasMany('App\OrderProduct');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

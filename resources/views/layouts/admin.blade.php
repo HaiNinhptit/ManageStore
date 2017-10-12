@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
   <script src="{{asset('jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('js/myjstiny.js')}}"></script>
+  <!-- <script src="{{asset('js/myjstiny.js')}}"></script>
   <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-  <script>tinymce.init({ selector:'textarea' });</script>
+  <script>tinymce.init({ selector:'textarea' });</script>-->
   <script src="{{asset('js/myjs.js')}}"></script>
+  <script src="{{asset('js/myjs2.js')}}"></script>
   <script src="{{asset('js/bootstrap.min.js')}}"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Home</a>
+      <a class="navbar-brand" href="{{action('UserController@index')}}">Home</a>
     </div>
     <ul class="nav navbar-nav">
         <li>
@@ -55,9 +56,12 @@
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">User
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">List User</a></li>
+                    <li><a href="{{action('UserController@listUser')}}">List User</a></li>
                 </ul>
             </div>
+        </li>
+        <li>
+        <a href="{{action('UserController@adminLogout')}}">Logout</a>
         </li>
       
     </ul>

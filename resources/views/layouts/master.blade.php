@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
   <script src="{{asset('jquery/jquery.min.js')}}"></script>
   <script src="{{asset('js/myjs.js')}}"></script> 
+  <script src="{{asset('js/myjs2.js')}}"></script>
   <script src="{{asset('js/bootstrap.min.js')}}"></script> 
   <script src="{{asset('js/swiper.min.js')}}"></script>
   <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/mystyle.css')}}">
+  <link rel="stylesheet" href="{{asset('css/mystyle2.css')}}">
 </head>
 <body>
 
@@ -40,9 +42,10 @@
         <li><a href="{{action('UserController@login')}}">Sign in</a></li>
       @endif
     </ul>
-    <form class="navbar-form navbar-left">
+    <form class="navbar-form navbar-left" action="{{action('ProductController@search')}}" method="post">
+    {{csrf_field()}}  
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" placeholder="Search" name="search" id="search">
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <i class="glyphicon glyphicon-search"></i>

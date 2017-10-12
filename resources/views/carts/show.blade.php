@@ -18,6 +18,6 @@
     @endforeach 
     </tbody>
   </table>
-  Total:{{$user->total()}}
+  Total:{{$user->totalOrderPrice()}}
 </div>
 @endsection

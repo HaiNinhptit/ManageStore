@@ -18,27 +18,48 @@
   @endif    
   @if ($cart == NULL) 
    <h1>Ban khong co san pham nao trogn gio hang</h1>
-  @else     
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>ID Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-    @foreach($cart->cartProducts as $cart_product)
-      <tr>
-        <td>{{$cart_product['product_id']}}</td>
-        <td>{{$cart_product['quantity']}}</td>
-        <td>{{$cart_product->product->price}}</td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-  <div style="margin-top:20px;"><span>Total: </span>{{$cart->totalPrice()}}</div>
-  <a href="{{action('CartController@order')}}" class="btn btn-primary" role="button" style="margin-bottom:10px;">Order</a>
+  @elseif (count($cart->cartProducts) > 0)     
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      @foreach($cart->cartProducts as $cart_product)
+        <tr>
+          <td>{{$cart_product['product_id']}}</td>
+          <td>{{$cart_product['quantity']}}</td>
+          <td>{{$cart_product->product->price}}</td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <div style="margin-top:20px;"><span>Total: </span>{{$cart->totalPrice()}}</div>
+    <a href="{{action('CartController@order')}}" class="btn btn-primary" role="button" style="margin-bottom:10px;">Order</a>
+  @else
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      @for ($i = 0 ; $i < count($arrays); $i++)
+        <tr>
+          <td>{{$arrays[$i]['id']}}</td>
+          <td>{{$arrays[$i]['number']}}</td>
+          <td>{{$arrays[$i]['price']}}</td>
+        </tr>
+      @endfor
+      </tbody>
+    </table>
+    <div style="margin-top:20px;"><span>Total: </span>{{$tong}}</div>
+    <a href="{{action('GuestController@checkOrder')}}" class="btn btn-primary" role="button" style="margin-bottom:10px;">Order</a> 
   @endif
 </div>
 @endsection

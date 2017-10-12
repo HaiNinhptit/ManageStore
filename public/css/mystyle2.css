@@ -44,3 +44,9 @@
     margin: 0 10px;
     font-size: 13px;
 }
+
+.hidden1{
+    visibility:hidden;
+    height:0px;
+}
+
