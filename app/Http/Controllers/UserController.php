@@ -7,6 +7,7 @@ use App\Product;
 use Auth;
 use App\Cart;
 use App\CartProduct;
+use App\Category;
 use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
@@ -14,6 +15,7 @@ class UserController extends Controller
     {
         $this->middleware('admin.check')->only('listUser', 'adminLogout', 'adminEdit', 'adminUpdate');
         $this->middleware('user.check')->only('edit', 'update', 'destroy');
+        $this->middleware('sendData');
     }
    
     /**
@@ -21,11 +23,32 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $products = Product::all();
-        return view('pages.home', compact('products'));
+        $womenCategories = Category::all()->where('trademark', '=', 'Woman');
+        $arrayCategoryWomanId = array();
+        foreach($womenCategories as $womanCategory)
+        {
+            array_push($arrayCategoryWomanId, $womanCategory->id);
+        }
+        $productWoman = Product::all()->whereIn('category_id',$arrayCategoryWomanId);
+
+        $manCategories = Category::all()->where('trademark', '=', 'Man');
+        $arrayCategoryManId = array();
+        foreach($manCategories as $manCategory)
+        {
+            array_push($arrayCategoryManId, $manCategory->id);
+        }
+        $productMan = Product::all()->whereIn('category_id',$arrayCategoryManId);
+
+        $kidCategories = Category::all()->where('trademark', '=', 'Kid');
+        $arrayCategoryKidId = array();
+        foreach($kidCategories as $kidCategory)
+        {
+            array_push($arrayCategoryKidId, $kidCategory->id);
+        }
+        $productKid = Product::all()->whereIn('category_id',$arrayCategoryKidId);
+        return view('pages.home', compact('productWoman', 'productMan', 'productKid'));
     }
 
     /**
@@ -94,7 +117,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         //
-        $id = $request->session()->get('id');
+        $id = $request->session()->get('user_id');
         $user = User::find($id);
         $this->validate(request(), [
             'name' => 'required',
@@ -153,10 +176,16 @@ class UserController extends Controller
           ])->first();
           $request->session()->put('user_id',$user->id);
           $request->session()->put('name',$user->name);
-          //return view('pages.home',compact('products'));
-          if($request->session()->has('products'))
+          if($request->session()->get('review')==1)
           {
-            //kiem tra xem co gio hang chua
+              $id = $request->session()->get('id');
+              $request->session()->forget('id');
+              $request->session()->forget('review');
+              return redirect('products/'.$id);
+          }
+          elseif ($request->session()->has('products'))
+          {
+               //kiem tra xem co gio hang chua
             $cart = Cart::find($request->session()->get('user_id'));  
             if($cart == NULL)
             {
@@ -165,7 +194,6 @@ class UserController extends Controller
                 $cart->save();  
             }
             $arrays = $request->session()->get('products');
-            $tong = 0;
             for($i = 0; $i < count($arrays); $i++)
             {
                 //kiem tra co cartproduct chua neu chua co thi tao moi con neu co roi thi so luong se bang cong don
@@ -177,19 +205,20 @@ class UserController extends Controller
                     $cartProduct->product_id = $arrays[$i]['id'];
                     $cartProduct->quantity = $arrays[$i]['number'];
                     $cartProduct->save();
-                    $tong+= $arrays[$i]['price'] * $cartProduct->quantity ;
+                    
                 }
                 else
                 {
                     $cartProduct->quantity = $cartProduct->quantity + $arrays[$i]['number'];
-                    $tong += $arrays[$i]['price'] * $cartProduct->quantity ;
+                    
                 }
             }
-            return view('carts.order',compact('cart','arrays','tong'));
+            $request->session()->forget('products');
+            return redirect('carts/showCart');
           }
           else
           {
-            return redirect()->route('home', ['products'=>$products]); 
+             return redirect()->route('home', ['products'=>$products]);
           }
        }
        elseif (Auth::attempt(['email' => $email, 'password' => $password, 'rules' => 1]))
@@ -211,7 +240,7 @@ class UserController extends Controller
         $request->session()->forget('user_id');
         $request->session()->forget('name');
         $request->session()->forget('products');
-        return redirect('users/login');
+        return redirect('users');
 
     }
     public function listUser()
@@ -242,5 +271,26 @@ class UserController extends Controller
         $request->session()->forget('admin_id');
         $request->session()->forget('name_admin');
         return redirect('users/login');
+    }
+
+    public function demo()
+    {
+        $categories = Category::select('trademark')->distinct()->get();
+        $trademarks = array();  //mang cac trademark co 3 phan tu : woman,man,kid
+        foreach ($categories as $category)
+        {
+            array_push($trademarks, $category->trademark);
+        }
+
+        $categoryByTrademarks = array();
+        foreach($trademarks as $trademark)
+        {
+            $categories = Category::all()->where('trademark', '=', $trademark)->toArray();
+            array_push($categoryByTrademarks,$categories);
+         
+        }
+        var_dump($categoryByTrademarks);
+        die();
+
     }
 }

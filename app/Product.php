@@ -40,4 +40,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Comment');
     }
+
+    public function countComment()
+    {
+        return $this->hasMany('App\Comment')->count();
+    }
 }

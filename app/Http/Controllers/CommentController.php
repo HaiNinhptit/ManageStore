@@ -9,6 +9,10 @@ use App\Product;
 class CommentController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('sendData');
+    }
     public function create(Request $request, $id)
     {
         //user_id  product_id content
@@ -40,5 +44,10 @@ class CommentController extends Controller
         $comment->content = $request->input('content1');
         $comment->save();
         return redirect('products/'.$id_product);
+    }
+
+    public function getLogin($id)
+    {
+        return view('users.login',compact('id'));
     }
 }

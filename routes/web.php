@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/','UserController@index');
 Route::get('users','UserController@index');
 Route::get('users/adminLogout','UserController@adminLogout');
 Route::match(['put','patch'],'users/adminUpdate/{id}','UserController@adminUpdate');
@@ -34,6 +35,7 @@ Route::resource('categories','CategoryController');
 
 
 //product
+Route::get('products/searchByCategory/{category_id}','ProductController@searchByCategory');
 Route::post('products/search','ProductController@search');
 Route::resource('products','ProductController');
 
@@ -53,7 +55,7 @@ Route::get('carts/showOrderDetal/{id}','CartController@showOrderDetail');
 
 //guest
 Route::delete('guest/carts/delete/{id}','GuestController@destroy');
-Route::match(['put','patch'], 'guest/carts/update/{id}','GuestController@update');
+Route::post('guest/carts/update/{id}','GuestController@update');
 Route::get('guest/carts/showCart','GuestController@showCart');
 Route::get('guest/carts/checkUser','GuestController@checkOrder');
 
@@ -62,3 +64,5 @@ Route::get('guest/carts/checkUser','GuestController@checkOrder');
 Route::post('comment/create/{id}','CommentController@create');
 Route::delete('comment/delete/{id}/{id_product}','CommentController@destroy');
 Route::post('comment/updateComment/{id}/{id_product}','CommentController@updateComment');
+
+Route::get('demo','UserController@demo');

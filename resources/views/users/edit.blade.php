@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.home')
 @section('content')
 <div class="content" style="border: 1px solid grey;border-radius: 25px; width:900px; margin-left:100px; padding-left:50px;">
 <h2 style="color:red; margin-bottom:30px; margin-left:150px;">EDIT USER</h2>

@@ -9,7 +9,8 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin.check')->except('show','search');
+        $this->middleware('admin.check')->except('show','search','searchByCategory');
+        $this->middleware('sendData');
     }
     /**
      * Display a listing of the resource.
@@ -66,7 +67,7 @@ class ProductController extends Controller
         //
         $product = Product::find($id);
         $comments = $product->comments;
-        return view('products.detail',['product'=>$product],compact('comments'));
+        return view('products.detail',compact('comments','product'));
     }
 
     /**
@@ -126,6 +127,13 @@ class ProductController extends Controller
     {
         $content = $request->input('search');
         $products = Product::Where('name', 'like', '%' . $content . '%')->orWhere('description', 'like', '%' . $content . '%')->get();
-        return view('pages.home', compact('products'));
+        return view('pages.search', compact('products'));
+    }
+
+    public function searchByCategory($category_id)
+    {
+        $category = Category::find($category_id);
+        $products = $category->products;
+        return view('pages.search', compact('products'));
     }
 }

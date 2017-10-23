@@ -14,24 +14,11 @@ class CartController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('user.check')->only('showOrder', 'showOrderDetail','order');
+        $this->middleware('sendData');
     }
     public function index(Request $request)
     {
-        if($request->session()->has('user_id'))
-        {
-            $id = $request->session()->get('user_id');
-            $cart = User::find($id)->cart;
-            return view('carts.index',compact('cart'));
-        }
-        else
-        {
-            $cart = new Cart();
-            $arrays = $request->session()->get('products');
-
-
-            return view('carts.index',compact('cart', 'arrays'));
-        }
+        return view('carts.index');
         
     }
     //

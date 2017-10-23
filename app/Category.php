@@ -15,4 +15,8 @@ class Category extends Model
     {
         return $this->hasMany('App\Product');
     }
+    public function productsWoman()
+    {
+        return $this->products()->where('trademark', '=', 'Woman');
+    }
 }
