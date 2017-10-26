@@ -35,8 +35,10 @@ Route::resource('categories','CategoryController');
 
 
 //product
-Route::get('products/searchByCategory/{category_id}','ProductController@searchByCategory');
-Route::post('products/search','ProductController@search');
+
+// Route::post('products/searchByDetail','ProductController@searchByDetail');
+Route::get('products/searchByCategory/{category_id?}','ProductController@searchByCategory');
+Route::get('products/search/{category_id?}','ProductController@search');
 Route::resource('products','ProductController');
 
 //picture
@@ -65,4 +67,4 @@ Route::post('comment/create/{id}','CommentController@create');
 Route::delete('comment/delete/{id}/{id_product}','CommentController@destroy');
 Route::post('comment/updateComment/{id}/{id_product}','CommentController@updateComment');
 
-Route::get('demo','UserController@demo');
+

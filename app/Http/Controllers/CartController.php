@@ -23,6 +23,7 @@ class CartController extends Controller
     }
     //
     public function create(Request $request, $id_product)
+    
     {
        if($request->session()->has('user_id')) 
        {
@@ -39,7 +40,14 @@ class CartController extends Controller
                 $cart_product = new CartProduct();
                 $cart_product->cart_id =$cart->id;
                 $cart_product->product_id = $id_product;
-                $cart_product->quantity = 1;
+                if($request->input('product-quantity') != NULL)
+                {
+                    $cart_product->quantity = $request->input('product-quantity');
+                }
+                else
+                {
+                    $cart_product->quantity = 1;
+                }
                 $cart_product->save();
                 return redirect('carts')->with('success','A new product has been added to the cart');
             }
@@ -61,7 +69,14 @@ class CartController extends Controller
                     $cart_product = new CartProduct();
                     $cart_product->cart_id =$cart->id;
                     $cart_product->product_id = $id_product;
-                    $cart_product->quantity = 1;
+                    if($request->input('product-quantity') != NULL)
+                    {
+                        $cart_product->quantity = $request->input('product-quantity');
+                    }
+                    else
+                    {
+                        $cart_product->quantity = 1;
+                    }
                     $cart_product->save(); 
                     return redirect('carts')->with('success','A new product has been added to the cart');
                 }
@@ -72,6 +87,14 @@ class CartController extends Controller
                     {
                         if($cart_product->product_id == $id_product)
                         {
+                            if($request->input('product-quantity') != NULL)
+                            {
+                                $cart_product->quantity += $request->input('product-quantity');
+                            }
+                            else
+                            {
+                                $cart_product->quantity = $cart_product->quantity + 1;
+                            }
                             $cart_product->quantity = $cart_product->quantity + 1;
                             $cart_product->save();
                             return redirect('carts')->with('success','A new product has been added to the cart');
@@ -90,7 +113,15 @@ class CartController extends Controller
             {
                 if ($arrays[$i]['id'] == $id_product)
                 {
-                    $arrays[$i]['number'] = $arrays[$i]['number'] + 1;
+                    //da co san pham trong mang
+                    if($request->input('product-quantity') != NULL)
+                    {
+                        $arrays[$i]['number'] += $request->input('product-quantity');
+                    }
+                    else
+                    {
+                        $arrays[$i]['number'] = $arrays[$i]['number'] + 1;
+                    }
                     $check = 0;
                     break;
                 }
@@ -99,7 +130,15 @@ class CartController extends Controller
             if($check == 1)
             {
                 $price = Product::find($id_product)->price;
-                $request->session()->push('products',['id'=>$id_product,'number'=>1, 'price' => $price]);
+                if($request->input('product-quantity') != NULL)
+                {
+                    $number = $request->input('product-quantity');
+                }
+                else
+                {
+                    $number = 1;
+                }
+                $request->session()->push('products',['id'=>$id_product,'number'=>$number, 'price' => $price]);
                 return redirect('carts')->with('success','Add product access');
             }
             else

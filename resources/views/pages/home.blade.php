@@ -91,99 +91,6 @@
 
     <div class="main">
       <div class="container">
-        <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
-        <!-- <div class="row margin-bottom-40">
-          <!-- BEGIN SALE PRODUCT -->
-          <!-- <div class="col-md-12 sale-product">
-            <h2>Woman</h2>
-            <div class="owl-carousel owl-carousel5">
-
-              @foreach ($productWoman as $product)
-              <div>
-                <div class="product-item">
-                  <div class="pi-img-wrapper">
-                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}">
-                    <div>
-                      <a href="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="btn btn-default fancybox-button">Zoom</a>
-                      <a href="{{'#product-pop-up' . $product->id}}" class="btn btn-default fancybox-fast-view">View</a>        
-                    </div>
-                  </div>
-                  <h3><a href="shop-item.html">{{$product->name}}</a></h3>
-                  <div class="pi-price">${{$product->price}}</div>
-                  <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
-                    {{csrf_field()}}
-                    <button class="btn btn-default add2cart" type="submit">Add Cart</button>
-                  </form>
-                  
-                </div> 
-                <div id="{{'product-pop-up' .$product->id}}" style="display: none; width: 700px;">
-                <div class="product-page product-pop-up">
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-3">
-                      <div class="product-main-image">
-                        <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" alt="{{$product->pictures->first()['name']}}" class="img-responsive">
-                      </div> -->
-                      <!-- <div class="product-other-images">
-                        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model3.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model4.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model5.jpg')}}"></a>
-                      </div> -->
-                    <!-- </div>
-                    <div class="col-md-6 col-sm-6 col-xs-9">
-                      <h2>{{$product->name}}</h2>
-                      <div class="price-availability-block clearfix">
-                        <div class="price">
-                          <strong><span>$</span>{{$product->price}}</strong>
-                          <!-- <em>$<span>62.00</span></em> -->
-                        <!-- </div>
-                        <div class="availability">
-                          Availability: <strong>In Stock</strong>
-                        </div>
-                      </div>
-                      <div class="description">
-                        <p>{{$product->description}}</p>
-                      </div>  -->
-                      <!-- <div class="product-page-options">
-                         <div class="pull-left">
-                          <label class="control-label">Size:</label>
-                          <select class="form-control input-sm">
-                            <option>L</option>
-                            <option>M</option>
-                            <option>XL</option>
-                          </select>
-                        </div>
-                         <div class="pull-left">
-                          <label class="control-label">Color:</label>
-                          <select class="form-control input-sm">
-                            <option>Red</option>
-                            <option>Blue</option>
-                            <option>Black</option>
-                          </select>
-                        </div> 
-                      </div> -->
-                      <!-- <div class="product-page-cart">
-                        <div class="product-quantity">
-                            <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
-                        </div>
-                        <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
-                          {{csrf_field()}}
-                          <button class="btn btn-primary" type="submit">Add Cart</button>
-                        </form>
-                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default">More details</a>
-                      </div>
-                    </div>
-
-                    <div class="sticker sticker-sale"></div>
-                  </div>
-                </div>
-              </div>                
-              </div>
-              @endforeach
-            </div>
-          </div> -->
-          <!-- END SALE PRODUCT -->
-        <!-- </div>  -->
-        <!-- END SALE PRODUCT & NEW ARRIVALS -->
 
         <!-- BEGIN SIDEBAR & CONTENT -->
         <div class="row margin-bottom-40 ">
@@ -204,7 +111,7 @@
                 <ul class="dropdown-menu"> 
                   @foreach ($categoryByTrademark as $category)
                   <li class="list-group-item dropdown clearfix">
-                    <a href="{{action('ProductController@searchByCategory',['category_id'=> $category['id']])}}"><i class="fa fa-angle-right"></i> {{$category['name']}} </a>
+                  <a href="{{action('ProductController@searchByCategory',['category_id'=> $category['id']])}}">{{$category['name']}}</a>
                   </li>
                   @endforeach
                 </ul>
@@ -218,7 +125,7 @@
           <div class="col-md-9 col-sm-8">
             <h2>woman</h2>
             <div class="owl-carousel owl-carousel3">
-            @foreach ($productMan as $product)
+            @foreach ($productWoman as $product)
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
@@ -263,34 +170,19 @@
                       <div class="description">
                         <p>{{$product->description}}</p>
                       </div>
-                      <!-- <div class="product-page-options">
-                         <div class="pull-left">
-                          <label class="control-label">Size:</label>
-                          <select class="form-control input-sm">
-                            <option>L</option>
-                            <option>M</option>
-                            <option>XL</option>
-                          </select>
-                        </div>
-                         <div class="pull-left">
-                          <label class="control-label">Color:</label>
-                          <select class="form-control input-sm">
-                            <option>Red</option>
-                            <option>Blue</option>
-                            <option>Black</option>
-                          </select>
-                        </div> 
-                      </div> -->
+                      <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
+                      {{csrf_field()}}
                       <div class="product-page-cart">
                         <div class="product-quantity">
                             <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
                         </div>
-                        <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
-                          {{csrf_field()}}
+                        
+                          
                           <button class="btn btn-primary" type="submit">Add Cart</button>
-                        </form>
-                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default">More details</a>
+                    
+                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default" style="margin-top:10px;">More details</a>
                       </div>
+                      </form>
                     </div>
 
                     <div class="sticker sticker-new"></div>
@@ -354,34 +246,17 @@
                       <div class="description">
                         <p>{{$product->description}}</p>
                       </div>
-                      <!-- <div class="product-page-options">
-                         <div class="pull-left">
-                          <label class="control-label">Size:</label>
-                          <select class="form-control input-sm">
-                            <option>L</option>
-                            <option>M</option>
-                            <option>XL</option>
-                          </select>
-                        </div>
-                         <div class="pull-left">
-                          <label class="control-label">Color:</label>
-                          <select class="form-control input-sm">
-                            <option>Red</option>
-                            <option>Blue</option>
-                            <option>Black</option>
-                          </select>
-                        </div> 
-                      </div> -->
+                      <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
+                      {{csrf_field()}}
                       <div class="product-page-cart">
                         <div class="product-quantity">
                             <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
                         </div>
-                        <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
-                          {{csrf_field()}}
                           <button class="btn btn-primary" type="submit">Add Cart</button>
-                        </form>
-                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default">More details</a>
+                        
+                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default" style="margin-top:10px;">More details</a>
                       </div>
+                      </form>
                     </div>
 
                     <div class="sticker sticker-new"></div>
@@ -441,34 +316,17 @@
                       <div class="description">
                         <p>{{$product->description}}</p>
                       </div>
-                      <!-- <div class="product-page-options">
-                         <div class="pull-left">
-                          <label class="control-label">Size:</label>
-                          <select class="form-control input-sm">
-                            <option>L</option>
-                            <option>M</option>
-                            <option>XL</option>
-                          </select>
-                        </div>
-                         <div class="pull-left">
-                          <label class="control-label">Color:</label>
-                          <select class="form-control input-sm">
-                            <option>Red</option>
-                            <option>Blue</option>
-                            <option>Black</option>
-                          </select>
-                        </div> 
-                      </div> -->
+                      <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
+                      {{csrf_field()}}
                       <div class="product-page-cart">
                         <div class="product-quantity">
                             <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
-                        </div>
-                        <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
-                          {{csrf_field()}}
+                        </div>                      
                           <button class="btn btn-primary" type="submit">Add Cart</button>
-                        </form>
-                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default">More details</a>
+                        
+                        <a href="{{action('ProductController@show',['id' => $product->id])}}" class="btn btn-default" style="margin-top:10px;">More details</a>
                       </div>
+                      </form>
                     </div>
 
                     <div class="sticker sticker-new"></div>
@@ -480,35 +338,7 @@
             </div>
           </div>
         </div>
-        <!-- END SIDEBAR & CONTENT -->
-
-          <!-- END TWO PRODUCTS -->
-          <!-- BEGIN PROMO -->
-          <!-- slide cuoi -->
-          <!-- <div class="col-md-6 shop-index-carousel">
-            <div class="content-slider">
-              <div id="myCarousel" class="carousel slide" data-ride="carousel"> -->
-                <!-- Indicators -->
-                <!-- <ol class="carousel-indicators">
-                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                  <li data-target="#myCarousel" data-slide-to="1"></li>
-                  <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="{{asset('assets/pages/img/index-sliders/slide1.jpg')}}" class="img-responsive" alt="Berry Lace Dress">
-                  </div>
-                  <div class="item">
-                    <img src="{{asset('assets/pages/img/index-sliders/slide2.jpg')}}" class="img-responsive" alt="Berry Lace Dress">
-                  </div>
-                  <div class="item">
-                    <img src="{{asset('assets/pages/img/index-sliders/slide3.jpg')}}" class="img-responsive" alt="Berry Lace Dress">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- END PROMO -->
+       
         </div>        
         <!-- END TWO PRODUCTS & PROMO -->
       </div>

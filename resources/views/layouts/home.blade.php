@@ -190,11 +190,6 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
                   </div> 
                 @else
                 @endif
-              <!-- </ul> -->
-              <!-- <div class="text-right">
-                <a href="shop-shopping-cart.html" class="btn btn-default">View Cart</a>
-                <a href="shop-checkout.html" class="btn btn-primary">Checkout</a>
-              </div> -->
             </div>
           </div>            
         </div>
@@ -228,58 +223,11 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
                 <!-- END DROPDOWN MENU -->
               </li> 
             @endforeach
-            <!-- <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                Kid
-                
-              </a>
-                
-              <!-- BEGIN DROPDOWN MENU -->
-              <!-- <ul class="dropdown-menu">
-                <li><a href="{{action('ProductController@searchByCategory',['category_id'=> 8])}}">Athletic Shoes</a></li>
-                <li><a href="{{action('ProductController@searchByCategory',['category_id'=> 9])}}">Flat Shoes</a></li>
-              </ul> -->
-              <!-- END DROPDOWN MENU -->
-            <!-- </li>  -->
-            <!-- <li class="dropdown dropdown100 nav-catalogue">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                New                
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="header-navigation-content">
-                    <div class="row">
-                      <div class="col-md-3 col-sm-4 col-xs-6">
-                        <div class="product-item">
-                          <div class="pi-img-wrapper">
-                            <a href="shop-item.html"><img src="{{asset('assets/pages/img/products/model4.jpg')}}" class="img-responsive" alt="Berry Lace Dress"></a>
-                          </div>
-                          <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                          <div class="pi-price">$29.00</div>
-                          <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </li> -->
-            <!-- <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                Pages                 
-              </a>               
-              <ul class="dropdown-menu">
-                <li class="active"><a href="shop-index.html">Home Default</a></li>
-                 
-                <li><a href="shop-terms-conditions-page.html">Terms &amp; Conditions</a></li>
-              </ul>
-            </li>                -->
-            <!-- BEGIN TOP SEARCH -->
             <li class="menu-search">
               <span class="sep"></span>
               <i class="fa fa-search search-btn"></i>
               <div class="search-box">
-                <form action="{{action('ProductController@search')}}" method="post">
+                <form action="{{action('ProductController@search')}}" method="get">
                 {{csrf_field()}} 
                   <div class="input-group">
                     <input type="text" placeholder="Search" class="form-control" name="search" id="search">
@@ -469,6 +417,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <script src="assets/plugins/respond.min.js"></script>  
     <![endif]-->
     <script src="{{asset('js/myjs.js')}}"></script>
+    <script src="{{asset('js/myjs2.js')}}"></script>
     <script src="{{asset('assets/plugins/jquery.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/jquery-migrate.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>      
