@@ -11,60 +11,64 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'products'], function (){
+    Route::get('searchByCategory/{category_id?}','ProductController@searchByCategory');
+    Route::get('search/{category_id?}','ProductController@search');
+    Route::get('{product}','ProductController@show');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('login','UserController@adminLogin');
+    Route::post('login','UserController@adminPostLogin');
+    Route::get('adminLogout','UserController@adminLogout');
+    Route::match(['put','patch'],'adminUpdate/{id}','UserController@adminUpdate');
+    Route::delete('{id}','UserController@destroy');
+    Route::get('adminEdit/{id}','UserController@adminEdit');
+    Route::get('listUser','UserController@listUser');
+    Route::resource('categories','CategoryController');
+    Route::resource('products','ProductController');
+    Route::resource('pictures','PictureController');
 });
 Route::get('/','UserController@index');
-Route::get('users','UserController@index');
-Route::get('users/adminLogout','UserController@adminLogout');
-Route::match(['put','patch'],'users/adminUpdate/{id}','UserController@adminUpdate');
-Route::get('users/adminEdit/{id}','UserController@adminEdit');
-Route::get('users/listUser','UserController@listUser');
-Route::get('users/home','UserController@index')->name('home');
-Route::match(['put','patch'],'users/update','UserController@update');
-Route::get('users/edit','UserController@edit');
-Route::get('users/logout','UserController@logout');
-Route::post('users/login','UserController@postLogin');
-Route::get('edit','UserController@getedit');
-Route::get('users/login','UserController@login');
-Route::resource('users','UserController',['except'=>[
-    'edit','update', 'index'
-]]);
 
-Route::resource('categories','CategoryController');
+Route::group(['prefix' => 'users'], function (){
+    Route::get('/','UserController@index');
+    Route::get('home','UserController@index')->name('home');
+    Route::match(['put','patch'],'update','UserController@update');
+    Route::get('edit','UserController@edit');
+    Route::get('logout','UserController@logout');
+    Route::post('login','UserController@postLogin');
+    Route::get('login','UserController@login');
+    Route::resource('/','UserController',['except'=>[
+        'edit','update', 'index','destroy',
+    ]]);
+});
 
 
-//product
 
-// Route::post('products/searchByDetail','ProductController@searchByDetail');
-Route::get('products/searchByCategory/{category_id?}','ProductController@searchByCategory');
-Route::get('products/search/{category_id?}','ProductController@search');
-Route::resource('products','ProductController');
+Route::group(['prefix' => 'carts'], function (){
+    Route::post('create/{id_product}','CartController@create');
+    Route::get('/','CartController@index');
+    Route::delete('{id}','CartController@destroy');
+    Route::post('{id}','CartController@update');
+    Route::get('showCart','CartController@showCart');
+    Route::get('order', 'CartController@order');
+    Route::get('showOrder','CartController@showOrder');
+    Route::get('showOrderDetal/{id}','CartController@showOrderDetail');
+});
 
-//picture
-Route::resource('pictures','PictureController');
-
-
-//cart
-Route::post('carts/create/{id_product}','CartController@create');
-Route::get('carts','CartController@index');
-Route::delete('carts/{id}','CartController@destroy');
-Route::post('carts/{id}','CartController@update');
-Route::get('carts/showCart','CartController@showCart');
-Route::get('carts/order', 'CartController@order');
-Route::get('carts/showOrder','CartController@showOrder');
-Route::get('carts/showOrderDetal/{id}','CartController@showOrderDetail');
-
-//guest
-Route::delete('guest/carts/delete/{id}','GuestController@destroy');
-Route::post('guest/carts/update/{id}','GuestController@update');
-Route::get('guest/carts/showCart','GuestController@showCart');
-Route::get('guest/carts/checkUser','GuestController@checkOrder');
+Route::group(['prefix' => 'guest'], function (){
+    Route::delete('carts/delete/{id}','GuestController@destroy');
+    Route::post('carts/update/{id}','GuestController@update');
+    Route::get('carts/showCart','GuestController@showCart');
+    Route::get('carts/checkUser','GuestController@checkOrder');
+});
 
 
-//comment
-Route::post('comment/create/{id}','CommentController@create');
-Route::delete('comment/delete/{id}/{id_product}','CommentController@destroy');
-Route::post('comment/updateComment/{id}/{id_product}','CommentController@updateComment');
+Route::group(['prefix' => 'comment'], function (){
+    Route::post('create/{id}','CommentController@create');
+    Route::delete('delete/{id}/{id_product}','CommentController@destroy');
+    Route::post('updateComment/{id}/{id_product}','CommentController@updateComment');
+});
 
 

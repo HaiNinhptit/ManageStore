@@ -50,7 +50,7 @@ class CategoryController extends Controller
             'trademark' => 'required',
         ]);
         Category::create($category);
-        return redirect('categories/create')->with('success','Add success');
+        return redirect('admin/categories/create')->with('success','Add success');
     }
 
     /**
@@ -95,7 +95,7 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->trademark = $request->input('trademark');
         $category->save();
-        return redirect('categories/'.$id.'/edit')->with('success','Edit success');
+        return redirect('admin/categories/'.$id.'/edit')->with('success','Edit success');
     }
 
     /**
@@ -109,6 +109,6 @@ class CategoryController extends Controller
         //
         $category = Category::find($id);
         $category->delete();
-        return redirect('categories');
+        return redirect('admin/categories');
     }
 }

@@ -6,12 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
   <script src="{{asset('jquery/jquery.min.js')}}"></script>
-  <!-- <script src="{{asset('js/myjstiny.js')}}"></script>
-  <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-  <script>tinymce.init({ selector:'textarea' });</script>-->
-  <script src="{{asset('js/myjs.js')}}"></script>
+  <script src="{{asset('js/myjs.js')}}"></script> 
   <script src="{{asset('js/myjs2.js')}}"></script>
-  <script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('js/bootstrap.min.js')}}"></script> 
 </head>
 <body>
 <div class="container">

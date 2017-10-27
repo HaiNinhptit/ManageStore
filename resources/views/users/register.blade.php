@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.home')
 @section('content')
     <div class="content" style="border: 1px solid grey;border-radius: 25px; width:600px; margin-left:300px;">
         <h2 style="color:red; margin-bottom:50px;margin-left: 200px;">REGISTER</h2>

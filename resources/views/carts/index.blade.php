@@ -50,7 +50,7 @@
                           <td style="text-align:center;">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-success" type="button" onclick="myFunction()"  id="button_send">Delete</button>
+                            <button class="btn btn-success btn-delete" type="button" id="{{$cart_product['id']}}">Delete</button>
                           </td>
                         </form>
                     </tr>
@@ -97,7 +97,7 @@
                           <td style="text-align:center;">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-success" type="button" onclick="myFunction()"  id="button_send">Delete</button>
+                            <button class="btn btn-success btn-delete" type="button" id="{{$products[$i]['id']}}">Delete</button>
                           </td>
                         </form>
                     </tr>

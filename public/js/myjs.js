@@ -1,14 +1,15 @@
-function myFunction() {
-    var r = confirm("Ban co chac chan muon xoa khong!");
-    console.log(r);
-    if(r == true){
-       document.getElementById('button_send').type="submit";
-    }
-    else{
-        document.getElementById('button_send').type="button";
-    }
-}
-
+$(document).ready(function(){
+    $(".btn-delete").click(function(){
+        var id =$(this).attr('id');
+        var r = confirm("Ban co chac chan muon xoa khong!");
+        if(r == true){
+            document.getElementById(id).type="submit";
+        }
+        else{
+            document.getElementById(id).type="button";
+        }    
+    });
+});
 
 jQuery( function( $ ) {
     

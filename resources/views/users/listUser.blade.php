@@ -23,7 +23,7 @@
             <form action="{{action('UserController@destroy',['id' => $user->id])}}" method="post" id="form_dl">
                 {{csrf_field()}}
                 <input name="_method" type="hidden" value="DELETE">
-                <button class="btn btn-danger" type="button" onclick="myFunction()" id="button_send">Delete</button>
+                <button class="btn btn-danger btn-delete" type="button"  id="{{$user->id}}">Delete</button>
             </form>
           </td>
         </tr>

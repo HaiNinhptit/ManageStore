@@ -25,7 +25,8 @@
           <form action="{{action('ProductController@destroy',['id' => $product['id']])}}" method="post" id="form_dl">
               {{csrf_field()}}
               <input name="_method" type="hidden" value="DELETE">
-              <button class="btn btn-danger" type="button" onclick="myFunction()" id="button_send">Delete</button>
+              <input id="id" value={{$product['id']}} type="hidden">
+              <button class="btn btn-danger btn-delete" type="button"  id="{{$product['id']}}">Delete</button>
           </form>
         </td>
       </tr>

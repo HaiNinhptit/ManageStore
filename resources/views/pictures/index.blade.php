@@ -18,10 +18,11 @@
         <td>{{$picture['product_id']}}</td>
         <td style="text-align:center;"><a href="{{action('PictureController@edit',['id' => $picture['id']])}}" class="btn btn-warning">Edit</a></td>
         <td style="text-align:center;">
-          <form action="{{action('PictureController@destroy',['id' => $picture['id']])}}" method="post" id="form_dl">
+          <form action="{{action('PictureController@destroy',['id' => $picture['id']])}}" method="post" id="form_delete">
               {{csrf_field()}}
               <input name="_method" type="hidden" value="DELETE">
-              <button class="btn btn-danger" type="button" onclick="myFunction()" id="button_send">Delete</button>
+              <input id="id" value={{$picture['id']}} type="hidden">
+              <button class="btn btn-danger btn-delete" type="button"  id="{{$picture['id']}}">Delete</button>
           </form>
         </td>
       </tr>

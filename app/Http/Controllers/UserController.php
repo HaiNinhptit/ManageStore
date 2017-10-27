@@ -13,8 +13,8 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin.check')->only('listUser', 'adminLogout', 'adminEdit', 'adminUpdate');
-        $this->middleware('user.check')->only('edit', 'update', 'destroy');
+        $this->middleware('admin.check')->only('listUser', 'adminLogout', 'adminEdit', 'adminUpdate','destroy');
+        $this->middleware('user.check')->only('edit', 'update');
         $this->middleware('sendData');
     }
    
@@ -79,7 +79,15 @@ class UserController extends Controller
         $user['password'] = bcrypt($user['password']);
         $user['rules'] = 0;
         User::create($user);
-        return redirect('users/login');
+        if($request->session()->has('admin_id'))
+        {
+            return redirect('admin/products');
+        }
+        else
+        {
+            return redirect('users/home'); 
+        }    
+
     }
 
     /**
@@ -151,8 +159,9 @@ class UserController extends Controller
         //
         $user = User::find($id);
         $user->delete();
-        return redirect('users/listUser');
+        return redirect('admin/listUser');
     }
+
 
     //get login
     public function login()
@@ -221,14 +230,6 @@ class UserController extends Controller
              return redirect()->route('home', ['products'=>$products]);
           }
        }
-       elseif (Auth::attempt(['email' => $email, 'password' => $password, 'rules' => 1]))
-       {    $user = DB::table('users')->where([
-                ['email', '=', $email]
-            ])->first();
-            $request->session()->put('admin_id',$user->id);
-            $request->session()->put('name_admin',$user->name);
-            return redirect('products');
-       }
        else
        {
            return redirect('users/login')->with('success','Login fails');
@@ -263,34 +264,42 @@ class UserController extends Controller
        $user = User::find($id);
        $user->name = $request->input('name');
        $user->save();
-       return redirect('users/listUser');
+       return redirect('admin/listUser');
     }
 
     public function adminLogout(Request $request)
     {
         $request->session()->forget('admin_id');
         $request->session()->forget('name_admin');
-        return redirect('users/login');
+        return redirect('admin/login');
     }
 
-    public function demo()
+   
+    public function adminLogin()
     {
-        $categories = Category::select('trademark')->distinct()->get();
-        $trademarks = array();  //mang cac trademark co 3 phan tu : woman,man,kid
-        foreach ($categories as $category)
-        {
-            array_push($trademarks, $category->trademark);
-        }
+        return view('users.adminLogin');
+    }
 
-        $categoryByTrademarks = array();
-        foreach($trademarks as $trademark)
-        {
-            $categories = Category::all()->where('trademark', '=', $trademark)->toArray();
-            array_push($categoryByTrademarks,$categories);
-         
+    public function adminPostLogin(Request $request)
+    {
+       
+        $this->validate(request(), [
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+       ]);
+       $email = $request->input('email');
+       $password = $request->input('password');
+       if (Auth::attempt(['email' => $email, 'password' => $password, 'rules' => 1]))
+        {   $user = DB::table('users')->where([
+                   ['email', '=', $email]
+            ])->first();
+            $request->session()->put('admin_id',$user->id);
+            $request->session()->put('name_admin',$user->name);
+            return redirect('admin/products');
         }
-        var_dump($categoryByTrademarks);
-        die();
-
+        else
+        {
+            return redirect('admin/login')->with('success','Login fails');
+        }
     }
 }

@@ -23,8 +23,7 @@
                   @foreach ($categoryByTrademark as $category)
                   {{$category['trademark']}}
                   @break;
-                  @endforeach
-                  
+                  @endforeach 
                 </a>
                 <ul class="dropdown-menu"> 
                   @foreach ($categoryByTrademark as $category)

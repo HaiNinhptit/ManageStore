@@ -129,7 +129,7 @@
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}">
+                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}" style="width:250px; height:200px;">
                     <div>
                       <a href="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="btn btn-default fancybox-button">Zoom</a>
                       <a href="{{'#product-pop-up1' . $product->id}}" class="btn btn-default fancybox-fast-view">View</a>        
@@ -150,11 +150,7 @@
                       <div class="product-main-image">
                         <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" alt="{{$product->pictures->first()['name']}}" class="img-responsive">
                       </div>
-                      <!-- <div class="product-other-images">
-                        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model3.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model4.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model5.jpg')}}"></a>
-                      </div> -->
+                      
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-9">
                       <h2>{{$product->name}}</h2>
@@ -205,7 +201,7 @@
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}">
+                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}" style="width:250px; height:200px;">
                     <div>
                       <a href="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="btn btn-default fancybox-button">Zoom</a>
                       <a href="{{'#product-pop-up1' . $product->id}}" class="btn btn-default fancybox-fast-view">View</a>        
@@ -226,11 +222,6 @@
                       <div class="product-main-image">
                         <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" alt="{{$product->pictures->first()['name']}}" class="img-responsive">
                       </div>
-                      <!-- <div class="product-other-images">
-                        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model3.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model4.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model5.jpg')}}"></a>
-                      </div> -->
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-9">
                       <h2>{{$product->name}}</h2>
@@ -275,7 +266,7 @@
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}">
+                    <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="img-responsive" alt="{{$product->pictures->first()['name']}}" style="width:250px; height:200px;">
                     <div>
                       <a href="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" class="btn btn-default fancybox-button">Zoom</a>
                       <a href="{{'#product-pop-up1' . $product->id}}" class="btn btn-default fancybox-fast-view">View</a>        
@@ -286,8 +277,7 @@
                   <form action="{{action('CartController@create',['id_product' => $product['id']])}}" method="post" id="form_dl">
                     {{csrf_field()}}
                     <button class="btn btn-default add2cart" type="submit">Add Cart</button>
-                  </form>
-                  
+                  </form>  
                 </div> 
                 <div id="{{'product-pop-up1' .$product->id}}" style="display: none; width: 700px;">
                 <div class="product-page product-pop-up">
@@ -296,11 +286,6 @@
                       <div class="product-main-image">
                         <img src="{{URL::asset('/images/products/'. $product->pictures->first()['name'])}}" alt="{{$product->pictures->first()['name']}}" class="img-responsive">
                       </div>
-                      <!-- <div class="product-other-images">
-                        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model3.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model4.jpg')}}"></a>
-                        <a href="javascript:;"><img alt="Berry Lace Dress" src="{{asset('assets/pages/img/products/model5.jpg')}}"></a>
-                      </div> -->
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-9">
                       <h2>{{$product->name}}</h2>

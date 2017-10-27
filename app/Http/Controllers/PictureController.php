@@ -52,7 +52,7 @@ class PictureController extends Controller
         $picture['name'] = $request->file('name')->getClientOriginalName();
         Picture::create($picture);
         $request->file('name')->move('images/products',$request->file('name')->getClientOriginalName());
-        return redirect('pictures/create')->with('success','Add success');
+        return redirect('admin/pictures/create')->with('success','Add success');
         
     }
 
@@ -99,7 +99,7 @@ class PictureController extends Controller
         $picture->name = $request->file('name')->getClientOriginalName();
         $picture->save();
         $request->file('name')->move('images/products',$request->file('name')->getClientOriginalName());
-        return redirect('pictures');
+        return redirect('admin/pictures');
     }
 
     /**
@@ -113,6 +113,6 @@ class PictureController extends Controller
         //
         $picture = Picture::find($id);
         $picture->delete();
-        return redirect('pictures');
+        return redirect('admin/pictures');
     }
 }

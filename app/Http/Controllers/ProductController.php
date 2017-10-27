@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin.check')->except('show','search','searchByCategory','searchByDetail');
+        $this->middleware('admin.check')->except('show','search','searchByCategory');
         $this->middleware('sendData');
     }
     /**
@@ -56,7 +56,7 @@ class ProductController extends Controller
             'category_id' => 'required|integer'
         ]);
         Product::create($product);
-        return redirect('products/create')->with('success','Add success');
+        return redirect('admin/products/create')->with('success','Add success');
     }
 
     /**
@@ -109,7 +109,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->category_id = $request->get('category_id');
         $product->save();
-        return redirect('products/'.$id.'/edit')->with('success','Edit success');
+        return redirect('admin/products/'.$id.'/edit')->with('success','Edit success');
     }
 
     /**
@@ -123,7 +123,7 @@ class ProductController extends Controller
         //
         $product = Product::find($id);
         $product->delete();
-        return redirect('products');
+        return redirect('admin/products');
     }
 
     public function search(Request $request)
@@ -132,6 +132,7 @@ class ProductController extends Controller
         $request->session()->put('search',1);
         $request->session()->put('search_content',$content);
         $products = Product::Where('name', 'like', '%' . $content . '%')->paginate(6);
+        $products->setPath('search?&search='.$content);
         return view('pages.search', compact('products'));
     }
 

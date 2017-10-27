@@ -121,6 +121,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
                           <li><a href="{{action('UserController@logout')}}">Log Out</a></li>
                         @else
                           <li><a href="{{action('UserController@login')}}">Log In</a></li>
+                          <li><a href="{{action('UserController@create')}}">Register</a></li>
                         @endif  
                     </ul>
                 </div>
@@ -416,8 +417,12 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <!--[if lt IE 9]>
     <script src="assets/plugins/respond.min.js"></script>  
     <![endif]-->
-    <script src="{{asset('js/myjs.js')}}"></script>
+    <!-- <script src="{{asset('js/myjs.js')}}"></script>
+    <script src="{{asset('js/myjs2.js')}}"></script> -->
+    <script src="{{asset('jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('js/myjs.js')}}"></script> 
     <script src="{{asset('js/myjs2.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/plugins/jquery.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/jquery-migrate.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>      
