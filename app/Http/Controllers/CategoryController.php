@@ -10,9 +10,11 @@ class CategoryController extends Controller
 
     public function __construct()
     {
+        //
         $this->middleware('admin.check');
         $this->middleware('sendData');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +52,7 @@ class CategoryController extends Controller
             'trademark' => 'required',
         ]);
         Category::create($category);
-        return redirect('admin/categories/create')->with('success','Add success');
+        return redirect('admin/categories/create')->with('success', 'Add success');
     }
 
     /**
@@ -74,7 +76,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::find($id);
-        return view('categories.edit',['category'=>$category]);
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
@@ -88,14 +90,14 @@ class CategoryController extends Controller
     {
         //
         $category = Category::find($id);
-        $this->validate(request(),[
+        $this->validate(request(), [
             'name' => 'required',
             'trademark' => 'required',
         ]);
         $category->name = $request->input('name');
         $category->trademark = $request->input('trademark');
         $category->save();
-        return redirect('admin/categories/'.$id.'/edit')->with('success','Edit success');
+        return redirect('admin/categories/'. $id. '/edit')->with('success', 'Edit success');
     }
 
     /**

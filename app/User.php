@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'rules',
+        'name', 'email', 'password', 'rules', 'active', 'random_check',
     ];
 
     /**
@@ -31,7 +31,6 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Cart');
     }
-
 
     public function orders()
     {

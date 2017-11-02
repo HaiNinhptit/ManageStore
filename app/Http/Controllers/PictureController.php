@@ -20,7 +20,7 @@ class PictureController extends Controller
     {
         //
         $pictures = Picture::all()->toArray();
-        return view('pictures.index',compact('pictures'));
+        return view('pictures.index', compact('pictures'));
     }
 
     /**
@@ -32,7 +32,7 @@ class PictureController extends Controller
     {
         //
         $products = Product::all()->toArray();
-        return view('pictures.add',compact('products'));
+        return view('pictures.add', compact('products'));
     }
 
     /**
@@ -48,11 +48,10 @@ class PictureController extends Controller
             'name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'product_id' => 'required|integer'
         ]);  
-
         $picture['name'] = $request->file('name')->getClientOriginalName();
         Picture::create($picture);
-        $request->file('name')->move('images/products',$request->file('name')->getClientOriginalName());
-        return redirect('admin/pictures/create')->with('success','Add success');
+        $request->file('name')->move('images/products', $request->file('name')->getClientOriginalName());
+        return redirect('admin/pictures/create')->with('success', 'Add success');
         
     }
 
@@ -78,8 +77,7 @@ class PictureController extends Controller
         //
         $products = Product::all()->toArray();
         $picture = Picture::find($id);
-        return view('pictures.edit',compact('products'),['picture'=>$picture]);
-
+        return view('pictures.edit', compact('products'), ['picture' => $picture]);
     }
 
     /**
@@ -92,13 +90,13 @@ class PictureController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate(request(),[
+        $this->validate(request(), [
             'name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $picture = Picture::find($id);
         $picture->name = $request->file('name')->getClientOriginalName();
         $picture->save();
-        $request->file('name')->move('images/products',$request->file('name')->getClientOriginalName());
+        $request->file('name')->move('images/products', $request->file('name')->getClientOriginalName());
         return redirect('admin/pictures');
     }
 

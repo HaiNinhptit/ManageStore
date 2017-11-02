@@ -18,7 +18,6 @@ class SendData
      */
     public function handle($request, Closure $next)
     {
-        //co tai khoan dang nhap thi truyen vao gio hang
         if($request->session()->has('user_id'))
         {
             $cart = User::find($request->session()->get('user_id'))->cart;
@@ -28,11 +27,6 @@ class SendData
             }
         }
 
-        //chua co tai khoan dang nhap thi truyen danh sach san pham
-        //products la danh sach san pham
-        //productCart la mang cac doi tunog san pham trong gio hang tuong duong voi mang products
-        //total la tong tien cua gio hang do
-        //count la dem tong so san pham trong gio hang
         if($request->session()->has('products'))
         {
             $count = 0;
@@ -44,9 +38,9 @@ class SendData
                 $count += $product['number'];
                 $total += $product['number'] * $product['price'];
                 $_product = Product::find($product['id']);
-                array_push($productCart,$_product);
+                array_push($productCart, $_product);
             }
-            View::share(['total'=> $total, 'count' => $count,'products' => $products, 'productCart' => $productCart]);
+            View::share(['total'=> $total, 'count' => $count, 'products' => $products, 'productCart' => $productCart]);
         }
 
         $categories = Category::select('trademark')->distinct()->get();
@@ -60,7 +54,7 @@ class SendData
         foreach($trademarks as $trademark)
         {
             $categories = Category::all()->where('trademark', '=', $trademark)->toArray();
-            array_push($categoryByTrademarks,$categories);
+            array_push($categoryByTrademarks, $categories);
          
         }
         View::share('categoryByTrademarks', $categoryByTrademarks);

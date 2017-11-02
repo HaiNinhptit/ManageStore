@@ -13,10 +13,13 @@ class GuestController extends Controller
     //
     public function __construct()
     {
+        //
         $this->middleware('sendData');
     }
+
     public function update(Request $request, $id)
     {
+        //
         $arrays = $request->session()->get('products');
         for($i = 0; $i < count($arrays); $i++)
         {
@@ -26,11 +29,12 @@ class GuestController extends Controller
             }
         }
         $request->session()->put('products', $arrays);
-        return redirect('carts')->with('success','Update success');
+        return redirect('carts')->with('success', 'Update success');
     }
 
     public function destroy(Request $request, $id)
     {
+        //
         $arrays = $request->session()->get('products');
         for($i = 0; $i < count($arrays); $i++)
         {
@@ -41,19 +45,20 @@ class GuestController extends Controller
             }
         }
         $request->session()->put('products', $arrays);
-        return redirect('carts')->with('success','Delete success');
+        return redirect('carts')->with('success', 'Delete success');
     }
 
     public function showCart(Request $request)
     {
+        //
        return view('carts.order');
     }
 
     public function checkOrder(Request $request)
     {
+        //
         if($request->session()->has('user_id'))
         {
-            
             //tao bang order va order product order co them user_id lay san pham trong gio hang vi vao day thi xoa session('products')
             $order = new Order();
             $order->user_id = $request->session()->get('user_id');

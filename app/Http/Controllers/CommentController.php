@@ -11,8 +11,10 @@ class CommentController extends Controller
     //
     public function __construct()
     {
+        //
         $this->middleware('sendData');
     }
+
     public function create(Request $request, $id)
     {
         //user_id  product_id content
@@ -30,24 +32,27 @@ class CommentController extends Controller
 
     public function destroy($id, $id_product)
     {
+        //
         $comment = Comment::find($id);
         $comment->delete();
-        return redirect('products/'.$id_product);
+        return redirect('products/'. $id_product);
     }
 
     public function updateComment(Request $request, $id, $id_product)
     {
+        //
         $comment = Comment::find($id);
         $this->validate(request(), [
             'content1' => 'required',
         ]);
         $comment->content = $request->input('content1');
         $comment->save();
-        return redirect('products/'.$id_product);
+        return redirect('products/'. $id_product);
     }
 
     public function getLogin($id)
     {
-        return view('users.login',compact('id'));
+        //
+        return view('users.login', compact('id'));
     }
 }

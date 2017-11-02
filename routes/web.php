@@ -71,4 +71,12 @@ Route::group(['prefix' => 'comment'], function (){
     Route::post('updateComment/{id}/{id_product}','CommentController@updateComment');
 });
 
+Route::get('form','DemoController@getForm');
+Route::post('xuLy','DemoController@xuLy');
+Route::get('user/confirm/{random_check}','UserController@confirmEmail');
+Route::get('user/sendMail','UserController@getFormSendMail');
+Route::post('user/sendMail','UserController@postFormSendMail');
+Route::get('user/resetpassword/{email}/{token}','UserController@getFormNewPassword');
+Route::post('user/resetpassword/{email}/{token}','UserController@postNewPassword');
+Route::get('user/resetPwdSuccess','UserController@getResetPwdSuccess');
 

@@ -35,6 +35,7 @@
       <button type="submit" class="btn btn-primary" style="margin-left:100px;">SIGN IN</button>
       </div>
     </div>
+    <a href="{{action('UserController@getFormSendMail')}}" >Quên mật khẩu ?</a>
   </form>
 </div>
 @endsection
