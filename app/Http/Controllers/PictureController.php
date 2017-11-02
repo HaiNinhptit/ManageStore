@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Picture;
 use App\Product;
 use Illuminate\Http\Request;
@@ -47,7 +48,7 @@ class PictureController extends Controller
         $picture = $this->validate(request(), [
             'name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'product_id' => 'required|integer'
-        ]);  
+        ]);
         $picture['name'] = $request->file('name')->getClientOriginalName();
         Picture::create($picture);
         $request->file('name')->move('images/products', $request->file('name')->getClientOriginalName());

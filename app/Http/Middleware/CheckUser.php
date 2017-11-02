@@ -15,12 +15,9 @@ class CheckUser
      */
     public function handle($request, Closure $next)
     {
-        if($request->session()->has('user_id'))
-        {
-            return $next($request); 
-        }
-        else
-        {
+        if ($request->session()->has('user_id')) {
+            return $next($request);
+        } else {
             return redirect('users/login');
 
         }

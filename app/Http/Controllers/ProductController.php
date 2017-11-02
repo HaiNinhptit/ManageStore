@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Config;
@@ -8,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\User;
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -141,50 +143,43 @@ class ProductController extends Controller
     public function searchByCategory(Request $request, $category_id = 0)
     {
         
-        if($category_id == 0 && $request->session()->get('search_content'))
-        {   
+        if ($category_id == 0 && $request->session()->get('search_content')) {
             $content = $request->session()->get('search_content');
             $sortBy = $request->input('sortBy');
             $limit = $request->input('limit');
             $request->session()->put('sortBy', $sortBy);
             $request->session()->put('limit', $limit);
         
-            if($sortBy == 0)
-            {
+            if ($sortBy == 0) {
                 $request->session()->put('search', 1);
-                $products = Product::where('name', 'like', '%'. $content . '%')->paginate($limit);              
+                $products = Product::where('name', 'like', '%'. $content . '%')->paginate($limit);
             }
     
-            if($sortBy == 1)
-            {
+            if ($sortBy == 1) {
                 $request->session()->put('search', 1);
-                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('name', 'asc')->paginate($limit);                               
+                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('name', 'asc')->paginate($limit);
             }
     
     
-            if($sortBy == 2)
-            {
+            if ($sortBy == 2) {
                 $request->session()->put('search', 1);
-                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('name', 'desc')->orderBy('name', 'desc')->paginate($limit);                               
+                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('name', 'desc')->orderBy('name', 'desc')->paginate($limit);
             
             }
     
     
-            if($sortBy == 3)
-            {
+            if ($sortBy == 3) {
                 $request->session()->put('search', 1);
-                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('price', 'asc')->orderBy('price', 'asc')->paginate($limit);                               
+                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('price', 'asc')->orderBy('price', 'asc')->paginate($limit);
             }
     
     
-            if($sortBy == 4)
-            {
+            if ($sortBy == 4) {
                 $request->session()->put('search', 1);
-                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('price', 'desc')->orderBy('price', 'desc')->paginate($limit);                               
-            } 
+                $products = Product::where('name', 'like', '%'. $content. '%')->orderBy('price', 'desc')->orderBy('price', 'desc')->paginate($limit);
+            }
             $products->setPath('searchByCategory?&search='. $content. '&limit='. $limit. '&sortBy='. $sortBy);
-        }
-        elseif ($request->input('search1') != NULL || $request->input('limit') != NULL || $request->input('sortBy') != NULL){
+        } elseif ($request->input('search1') != null || $request->input('limit') != null || $request->input('sortBy') != null) {
             $content = $request->input('search1');
             $sortBy = $request->input('sortBy');
             $limit = $request->input('limit');
@@ -192,47 +187,40 @@ class ProductController extends Controller
             $request->session()->put('sortBy', $sortBy);
             $request->session()->put('limit', $limit);
             $request->session()->put('content1', $content);
-            if($sortBy == 0)
-            {
+            if ($sortBy == 0) {
                 $request->session()->forget('search_content');
-                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content . '%')->paginate($limit); 
+                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content . '%')->paginate($limit);
                              
             }
     
-            if($sortBy == 1)
-            {
+            if ($sortBy == 1) {
                 $request->session()->forget('search_content');
-                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('name', 'asc')->paginate($limit);                               
+                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('name', 'asc')->paginate($limit);
             }
     
     
-            if($sortBy == 2)
-            {
+            if ($sortBy == 2) {
                 $request->session()->forget('search_content');
-                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('name', 'desc')->orderBy('name', 'desc')->paginate($limit);                               
+                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('name', 'desc')->orderBy('name', 'desc')->paginate($limit);
             
             }
     
     
-            if($sortBy == 3)
-            {
+            if ($sortBy == 3) {
                 $request->session()->forget('search_content');
-                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('price', 'asc')->orderBy('price', 'asc')->paginate($limit);                               
+                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('price', 'asc')->orderBy('price', 'asc')->paginate($limit);
             }
     
     
-            if($sortBy == 4)
-            {
+            if ($sortBy == 4) {
                 $request->session()->forget('search_content');
-                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('price', 'desc')->orderBy('price', 'desc')->paginate($limit);                               
-            } 
+                $products = Product::where('category_id', '=', $category_id)->where('name', 'like', '%'. $content. '%')->orderBy('price', 'desc')->orderBy('price', 'desc')->paginate($limit);
+            }
             $products->setPath('searchByCategory?&search1='. $content. '&limit='. $limit. '&sortBy='. $sortBy. '&category_id='. $category_id);
-        }
-        else{
-            $products = Product::where('category_id', '=', $category_id)->paginate(3); 
+        } else {
+            $products = Product::where('category_id', '=', $category_id)->paginate(3);
             $request->session()->forget('search_content');
         }
         return view('pages.search', compact('products', 'category_id'));
     }
-
 }

@@ -28,11 +28,10 @@ class Cart extends Model
         return $this->hasMany('App\CartProduct');
     }
 
-    public function totalPrice() 
+    public function totalPrice()
     {
         $total = 0;
-        foreach($this->cartProducts as $cart_product)
-        {
+        foreach ($this->cartProducts as $cart_product) {
             $total += $cart_product['quantity'] * $cart_product->product->price;
         }
         return $total;
@@ -41,8 +40,7 @@ class Cart extends Model
     public function countItem()
     {
         $count = 0;
-        foreach($this->cartProducts as $cart_product)
-        {
+        foreach ($this->cartProducts as $cart_product) {
             $count += $cart_product['quantity'];
         }
         return $count;

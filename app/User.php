@@ -40,8 +40,7 @@ class User extends Authenticatable
     public function totalOrderPrice()
     {
         $total = 0;
-        foreach($this->orders as $order)
-        {
+        foreach ($this->orders as $order) {
             $total += $order->totalPrice();
         }
         return $total;

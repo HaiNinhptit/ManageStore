@@ -15,12 +15,9 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if($request->session()->has('admin_id'))
-        {
-            return $next($request); 
-        }
-        else
-        {
+        if ($request->session()->has('admin_id')) {
+            return $next($request);
+        } else {
             return redirect('admin/login');
 
         }

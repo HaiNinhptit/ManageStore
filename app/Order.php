@@ -24,8 +24,7 @@ class Order extends Model
     public function totalPrice()
     {
         $total = 0;
-        foreach($this->orderProducts as $orderProduct)
-        {
+        foreach ($this->orderProducts as $orderProduct) {
             $total += $orderProduct->price * $orderProduct->quantity;
         }
         return $total;

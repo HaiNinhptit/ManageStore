@@ -15,38 +15,6 @@
             <h1>Checkout</h1>
             <!-- BEGIN CHECKOUT PAGE -->
             <div class="panel-group checkout-page accordion scrollable" id="checkout-page">
-
-              <!-- BEGIN CHECKOUT -->
-              <!-- <div id="checkout" class="panel panel-default">
-                <div class="panel-heading">
-                  <h2 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#checkout-page" href="#checkout-content" class="accordion-toggle">
-                      Step 1: Checkout Options
-                    </a>
-                  </h2>
-                </div>
-                <div id="checkout-content" class="panel-collapse collapse in">
-                  <div class="panel-body row">
-                    <div class="col-md-6 col-sm-6">
-                      <h3>New Customer</h3>
-                      <p>Checkout Options:</p>
-                      <div class="radio-list">
-                        <label>
-                          <input type="radio" name="account"  value="register"> Register Account
-                        </label>
-                        <label>
-                          <input type="radio" name="account"  value="guest"> Guest Checkout
-                        </label> 
-                      </div>
-                      <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-                      <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#confirm-content">Continue</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-              <!-- END CHECKOUT -->
-
-              <!-- BEGIN CONFIRM -->
               <div id="checkout" class="panel panel-default">
                 <div class="panel-heading">
                   <h2 class="panel-title">
@@ -68,8 +36,6 @@
                               </td>
                               <td class="checkout-description">
                                 <h3><a href="javascript:;">{{$cart_product->product->description}}</a></h3>
-                                <!-- <p><strong>Item 1</strong> - Color: Green; Size: S</p>
-                                <em>More info is here</em> -->
                               </td>
                               <td class="checkout-quantity">{{$cart_product['quantity']}}</td>
                               <td class="checkout-price"><strong><span>$</span>{{$cart_product->product->price}}</strong></td>
@@ -84,8 +50,6 @@
                                   </td>
                                   <td class="checkout-description">
                                     <h3><a href="javascript:;">{{$productCart[$i]->description}}</a></h3>
-                                    <!-- <p><strong>Item 1</strong> - Color: Green; Size: S</p>
-                                    <em>More info is here</em> -->
                                   </td>
                               <td class="checkout-quantity">{{$products[$i]['number']}}</td>
                               <td class="checkout-price"><strong><span>$</span>{{$products[$i]['price']}}</strong></td>
