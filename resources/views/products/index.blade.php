@@ -20,9 +20,9 @@
         <td>{{$product['price']}}</td>
         <td>{{$product['description']}}</td>
         <td>{{$product['category_id']}}</td>
-        <td style="text-align:center;"><a href="{{action('ProductController@edit',['id' => $product['id']])}}" class="btn btn-warning">Edit</a></td>
+        <td style="text-align:center;"><a href="{{action('ProductController@edit', ['id' => $product['id']])}}" class="btn btn-warning">Edit</a></td>
         <td style="text-align:center;">
-          <form action="{{action('ProductController@destroy',['id' => $product['id']])}}" method="post" id="form_dl">
+          <form action="{{action('ProductController@destroy', ['id' => $product['id']])}}" method="post" id="form_dl">
               {{csrf_field()}}
               <input name="_method" type="hidden" value="DELETE">
               <input id="id" value={{$product['id']}} type="hidden">

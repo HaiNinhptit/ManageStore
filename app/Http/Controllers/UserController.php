@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Socialite;
 use Mail;
 use App\User;
 use Illuminate\Http\Request;
@@ -237,7 +238,7 @@ class UserController extends Controller
                     }
                 }
                 $request->session()->forget('products');
-                return redirect('carts/showCart');
+                return redirect('guest/carts/showCart');
             } else {
                 return redirect()->route('home', ['products' => $products]);
             }
@@ -374,8 +375,11 @@ class UserController extends Controller
             return redirect('users/home');
         }
     }
+
     public function getResetPwdSuccess()
     {
         return view('users.resetPwdSuccess');
     }
+
+   
 }

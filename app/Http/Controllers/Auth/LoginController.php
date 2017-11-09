@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Google_Client;
+use Google_Service_People;
 
 class LoginController extends Controller
 {

@@ -134,41 +134,41 @@ class CartController extends Controller
         return redirect('carts');
     }
 
-    public function showCart(Request $request)
-    {
-        //
-        $id = $request->session()->get('user_id');
-        $cart = User::find($id)->cart;
-        return view('carts.order', compact('cart'));
-    }
+    // public function showCart(Request $request)
+    // {
+    //     //
+    //     $id = $request->session()->get('user_id');
+    //     $cart = User::find($id)->cart;
+    //     return view('carts.order', compact('cart'));
+    // }
 
-    public function order(Request $request)
-    {
-        //
-        $id = $request->session()->get('user_id');
-        $order = new Order();
-        $order->user_id = $id;
-        $order->save();
-        $cart = User::find($id)->cart;
-        foreach ($cart->cartProducts as $cart_product) {
-            $orderProduct = new OrderProduct();
-            $orderProduct->order_id = $order->id;
-            $orderProduct->product_id = $cart_product->product_id;
-            $orderProduct->quantity = $cart_product->quantity;
-            $orderProduct->price = $cart_product->product->price;
-            $orderProduct->save();
-        }
-        $cart->delete();
-        return redirect('users/home')->with('success', 'Order success');
-    }
+    // public function order(Request $request)
+    // {
+    //     //
+    //     $id = $request->session()->get('user_id');
+    //     $order = new Order();
+    //     $order->user_id = $id;
+    //     $order->save();
+    //     $cart = User::find($id)->cart;
+    //     foreach ($cart->cartProducts as $cart_product) {
+    //         $orderProduct = new OrderProduct();
+    //         $orderProduct->order_id = $order->id;
+    //         $orderProduct->product_id = $cart_product->product_id;
+    //         $orderProduct->quantity = $cart_product->quantity;
+    //         $orderProduct->price = $cart_product->product->price;
+    //         $orderProduct->save();
+    //     }
+    //     $cart->delete();
+    //     return redirect('users/home')->with('success', 'Order success');
+    // }
 
-    public function showOrder(Request $request)
-    {
-        //
-        $id = $request->session()->get('user_id');
-        $user = User::find($id);
-        return view('carts.show', compact('user'));
-    }
+    // public function showOrder(Request $request)
+    // {
+    //     //
+    //     $id = $request->session()->get('user_id');
+    //     $user = User::find($id);
+    //     return view('carts.show', compact('user'));
+    // }
 
     public function showOrderDetail($id)
     {

@@ -160,7 +160,11 @@
                           <!-- <em>$<span>62.00</span></em> -->
                         </div>
                         <div class="availability">
-                          Availability: <strong>In Stock</strong>
+                          @if($product->checkActive())
+                             Availability: <strong>In Stock</strong>
+                          @else
+                             Availability: <strong>Not Available</strong>
+                          @endif
                         </div>
                       </div>
                       <div class="description">
@@ -231,7 +235,11 @@
                           <!-- <em>$<span>62.00</span></em> -->
                         </div>
                         <div class="availability">
-                          Availability: <strong>In Stock</strong>
+                          @if($product->checkActive())
+                             Availability: <strong>In Stock</strong>
+                          @else
+                             Availability: <strong>Not Available</strong>
+                          @endif
                         </div>
                       </div>
                       <div class="description">
@@ -295,7 +303,11 @@
                           <!-- <em>$<span>62.00</span></em> -->
                         </div>
                         <div class="availability">
-                          Availability: <strong>In Stock</strong>
+                          @if($product->checkActive())
+                             Availability: <strong>In Stock</strong>
+                          @else
+                             Availability: <strong>Not Available</strong>
+                          @endif
                         </div>
                       </div>
                       <div class="description">

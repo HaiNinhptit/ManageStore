@@ -45,4 +45,20 @@ class Product extends Model
     {
         return $this->hasMany('App\Comment')->count();
     }
+
+    public function warehousingDetails()
+    {
+        return $this->hasMany('App\WarehousingDetail');
+    }
+
+    public function activeProduct()
+    {
+        return $this->hasOne('App\ActiveProduct');
+    }
+
+    //check active product
+    public function checkActive()
+    {
+        return $this->activeProduct->quantity > 0;
+    }
 }

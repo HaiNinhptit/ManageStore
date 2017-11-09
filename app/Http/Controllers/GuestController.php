@@ -8,6 +8,7 @@ use App\Order;
 use App\OrderProduct;
 use App\CartProduct;
 use App\User;
+use App\ActiveProduct;
 
 class GuestController extends Controller
 {
@@ -67,8 +68,15 @@ class GuestController extends Controller
                 $orderProduct->price = $cartProduct->product->price;
                 $orderProduct->quantity = $cartProduct->quantity;
                 $orderProduct->save();
+                // $activeProduct = ActiveProduct::Where('product_id', '=', $cartProduct->product_id);
+                // $activeProduct->quantity -= $cartProduct->quantity;
+                // $activeProduct->save();
             }
             $cart->delete();
+            $listCartProduct = $cart->cartProducts;
+            foreach ($listCartProduct as $cartProduct) {
+                $cartProduct->delete();
+            }
             return redirect('users/home');
         } else {
             return redirect('users/login');
